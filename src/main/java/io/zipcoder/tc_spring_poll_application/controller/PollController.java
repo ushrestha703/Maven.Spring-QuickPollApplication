@@ -1,5 +1,6 @@
 package io.zipcoder.tc_spring_poll_application.controller;
 
+import io.zipcoder.springdemo.QuickPollApplication.exception.ResourceNotFoundException;
 import io.zipcoder.tc_spring_poll_application.Repository.PollRepository;
 import io.zipcoder.tc_spring_poll_application.domain.Poll;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +65,13 @@ public class PollController {
     public ResponseEntity<?> deletePoll(@PathVariable Long pollId) {
         pollRepository.delete(pollId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public void verifyPoll(long pollId){
+        if(pollRepository.exists(pollId)){
+        }
+        else{
+            throw new ResourceNotFoundException("poll not found");
+        }
     }
 }
